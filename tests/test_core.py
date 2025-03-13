@@ -8,7 +8,6 @@ from tap_webflow.tap import TapWebflow
 
 SAMPLE_CONFIG = {
     "start_date": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d"),
-    # TODO: Initialize minimal tap config
 }
 
 
@@ -17,6 +16,3 @@ TestTapWebflow = get_tap_test_class(
     tap_class=TapWebflow,
     config=SAMPLE_CONFIG,
 )
-
-
-# TODO: Create additional tests as appropriate for your tap.

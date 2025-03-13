@@ -5,7 +5,6 @@ from __future__ import annotations
 from singer_sdk import Tap
 from singer_sdk import typing as th  # JSON schema typing helpers
 
-# TODO: Import your custom stream types here:
 from tap_webflow import streams
 
 
@@ -14,7 +13,6 @@ class TapWebflow(Tap):
 
     name = "tap-webflow"
 
-    # TODO: Update this section with the actual config values you expect:
     config_jsonschema = th.PropertiesList(
         th.Property(
             "auth_token",
@@ -25,11 +23,18 @@ class TapWebflow(Tap):
             description="The token to authenticate against the API service",
         ),
         th.Property(
-            "project_ids",
-            th.ArrayType(th.StringType),
+            "site_id",
+            th.StringType,
             required=True,
-            title="Project IDs",
-            description="Project IDs to replicate",
+            title="Form ID",
+            description="The ID of the site to sync",
+        ),
+        th.Property(
+            "form_id",
+            th.StringType,
+            required=True,
+            title="Form ID",
+            description="The ID of the form to sync",
         ),
         th.Property(
             "start_date",
@@ -60,8 +65,7 @@ class TapWebflow(Tap):
             A list of discovered streams.
         """
         return [
-            streams.GroupsStream(self),
-            streams.UsersStream(self),
+            streams.FormSubmissionsStream(self),
         ]
 
 
